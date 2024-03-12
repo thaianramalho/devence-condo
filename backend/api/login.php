@@ -7,28 +7,26 @@ require_once '../config/request_config.php';
 require_once '../config/dbconfig.php';
 
 //Output values
-function createResponse($status, $message, $data = []) 
+function createResponse($status, $message, $data = [])
 {
-    $response = 
-    [
-        'status' => $status,
-        'message' => $message,
-        'data' => $data
-    ];
+    $response =
+        [
+            'status' => $status,
+            'message' => $message,
+            'data' => $data
+        ];
     return json_encode($response);
 }
 
-function validateInput($input) 
+function validateInput($input)
 {
     //SQL Injection protection
-    if(preg_match('/<script\b[^>]*>(.*?)<\/script>/is', $input)) 
-    {
+    if (preg_match('/<script\b[^>]*>(.*?)<\/script>/is', $input)) {
         return false;
     }
 
     // XSS protection
-    if(preg_match('/<[^>]*>/', $input)) 
-    {
+    if (preg_match('/<[^>]*>/', $input)) {
         return false;
     }
 
@@ -36,7 +34,7 @@ function validateInput($input)
 }
 
 //Brute force protection - Limit requests
-function checkRequestLimit($ip_address) 
+function checkRequestLimit($ip_address)
 {
 
     global $connection;
@@ -48,8 +46,7 @@ function checkRequestLimit($ip_address)
     $result = $query->fetch(PDO::FETCH_ASSOC);
 
     //Maximum 100 requests/hour
-    if($result['COUNT(*)'] > 100) 
-    { 
+    if ($result['COUNT(*)'] > 100) {
         return false;
     }
 
@@ -57,7 +54,7 @@ function checkRequestLimit($ip_address)
 }
 
 //Limitation of access time
-function checkRequestTime($ip_address) 
+function checkRequestTime($ip_address)
 {
     global $connection;
     $query = $connection->prepare("SELECT request_time FROM requests 
@@ -67,12 +64,10 @@ function checkRequestTime($ip_address)
     $query->bindParam(':ip_address', $ip_address, PDO::PARAM_STR);
     $query->execute();
     $result = $query->fetch(PDO::FETCH_ASSOC);
-    if($result) 
-    {
+    if ($result) {
         $last_request_time = strtotime($result['request_time']);
         $current_time = strtotime(date('Y-m-d H:i:s'));
-        if($current_time - $last_request_time < 1) 
-        {
+        if ($current_time - $last_request_time < 1) {
             return false;
         }
     }
@@ -81,70 +76,57 @@ function checkRequestTime($ip_address)
 }
 
 //Encrypt
-function xorEncrypt($input) 
+function xorEncrypt($input)
 {
 
     return base64_encode($input);
 }
 
 //Processing API requests
-if($_SERVER['REQUEST_METHOD'] == 'POST') 
-{
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    if(!checkRequestLimit($_SERVER['REMOTE_ADDR'])) 
-    {
+    if (!checkRequestLimit($_SERVER['REMOTE_ADDR'])) {
         echo createResponse('error', 'Too many requests! Try again later.', []);
         exit;
     }
 
-    if(!checkRequestTime($_SERVER['REMOTE_ADDR'])) 
-    {
+    if (!checkRequestTime($_SERVER['REMOTE_ADDR'])) {
         echo createResponse('error', 'Request too common! Try again later.', []);
         exit;
     }
 
     //Check and process entered data
     $data = json_decode(file_get_contents('php://input'), true);
-    if($data) 
-    {
+    if ($data) {
 
         $email = isset($data['email']) ? $data['email'] : '';
         $password = isset($data['password']) ? $data['password'] : '';
 
-        if (!$data || empty($data['email']) || empty($data['password'])) 
-        {
-            echo createResponse('error', 'Missing required fields.', []);
+        if (!$data || empty($data['email']) || empty($data['password'])) {
+            echo createResponse('error', 'Preencha os campos obrigatórios.', []);
             exit;
         }
 
         $email_hash = base64_encode($data['email']);
         $password = $data['password'];
-       
+
         $sql = "SELECT * FROM requests WHERE email = '$email_hash'";
         $query = $connection->prepare($sql);
         $query->execute();
         $row = $query->fetch(PDO::FETCH_ASSOC);
-        
+
         $password_hash = $row['password'];
-        if(password_verify($password, $password_hash))
-        {
+        if (password_verify($password, $password_hash)) {
             session_start();
             $_SESSION['username'] = $row['username'];
             $username = $_SESSION['username'];
             echo createResponse('success', 'Logged in successfully.', ['username' => $_SESSION['username']]);
-        }
-        else 
-        {
-            echo createResponse('error', "Incorrect login information.", []);
+        } else {
+            echo createResponse('error', "Informações de login incorretas.", []);
             exit;
         }
-    } 
-    else 
-    {
+    } else {
         echo createResponse('error', 'Wrong request.', []);
         exit;
     }
-
 }
-
-?>
