@@ -1,28 +1,19 @@
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
-import '@fontsource/roboto/400.css';
-import './App.css';
-import './bootstrap-grid.min.css';
-import Footer from './components/Footer';
-import Register from './components/Register';
-import Login from './components/Login';
-import Logout from './components/Logout';
-import Dashboard from './components/Dashboard';
+/* eslint-disable perfectionist/sort-imports */
+import 'src/global.css';
 
-function App() {
+import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
+
+import Router from 'src/routes/sections';
+import ThemeProvider from 'src/theme';
+
+// ----------------------------------------------------------------------
+
+export default function App() {
+  useScrollToTop();
+
   return (
-    <div>
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<Login />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Routes>
-        </BrowserRouter>
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <Router />
+    </ThemeProvider>
   );
 }
-
-export default App;
