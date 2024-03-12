@@ -38,6 +38,10 @@ export default function AccountPopover() {
   };
 
   const handleClose = () => {
+    setOpen(null);
+  };
+
+  const handleLogout = async () => {
     axios
       .post('http://localhost/devence-condo/backend/api/logout.php')
       .then((response) => {
@@ -113,7 +117,7 @@ export default function AccountPopover() {
         <MenuItem
           disableRipple
           disableTouchRipple
-          onClick={handleClose}
+          onClick={handleLogout}
           sx={{ typography: 'body2', color: 'error.main', py: 1.5 }}
         >
           Sair
