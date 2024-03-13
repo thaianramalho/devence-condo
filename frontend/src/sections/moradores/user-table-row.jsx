@@ -19,10 +19,11 @@ import Iconify from 'src/components/iconify';
 export default function UserTableRow({
   selected,
   name,
-  avatarUrl,
-  company,
-  role,
-  isVerified,
+  cpf,
+  telefone,
+  endereco,
+  complemento,
+  observacoes,
   status,
   handleClick,
 }) {
@@ -44,19 +45,20 @@ export default function UserTableRow({
         </TableCell>
 
         <TableCell component="th" scope="row" padding="none">
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
-            <Typography variant="subtitle2" noWrap>
-              {name}
-            </Typography>
-          </Stack>
+          <Typography variant="subtitle2" noWrap>
+            {name}
+          </Typography>
         </TableCell>
 
-        <TableCell>{company}</TableCell>
+        <TableCell>{cpf}</TableCell>
 
-        <TableCell>{role}</TableCell>
+        <TableCell>{telefone}</TableCell>
 
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
+        <TableCell>{endereco}</TableCell>
+
+        <TableCell>{complemento}</TableCell>
+
+        <TableCell>{observacoes}</TableCell>
 
         <TableCell>
           <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
@@ -94,12 +96,13 @@ export default function UserTableRow({
 }
 
 UserTableRow.propTypes = {
-  avatarUrl: PropTypes.any,
-  company: PropTypes.any,
+  cpf: PropTypes.any,
+  telefone: PropTypes.any,
+  endereco: PropTypes.any,
+  complemento: PropTypes.any,
+  observacoes: PropTypes.any,
   handleClick: PropTypes.func,
-  isVerified: PropTypes.any,
   name: PropTypes.any,
-  role: PropTypes.any,
-  selected: PropTypes.any,
   status: PropTypes.string,
+  selected: PropTypes.any,
 };

@@ -1,1 +1,1 @@
-export { default as MoradoresView } from './moradores-view';
+export { default as MoradorPage } from './moradores-view';

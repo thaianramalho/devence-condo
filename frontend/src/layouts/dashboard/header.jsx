@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 
 import { useResponsive } from 'src/hooks/use-responsive';
@@ -31,7 +32,9 @@ export default function Header({ onOpenNav }) {
         </IconButton>
       )}
 
-      {/* <Searchbar /> */}
+      <IconButton onClick={() => window.location.reload()} sx={{ mr: 1 }} title="Recarregar">
+        <Iconify icon="eva:refresh-fill" />
+      </IconButton>
 
       <Box sx={{ flexGrow: 1 }} />
 
@@ -41,7 +44,6 @@ export default function Header({ onOpenNav }) {
       </Stack>
     </>
   );
-
   return (
     <AppBar
       sx={{

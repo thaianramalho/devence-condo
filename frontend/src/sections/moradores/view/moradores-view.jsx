@@ -122,11 +122,13 @@ export default function MoradorPage() {
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
-                  { id: 'name', label: 'Name' },
-                  { id: 'company', label: 'Company' },
-                  { id: 'role', label: 'Role' },
-                  { id: 'isVerified', label: 'Verified', align: 'center' },
-                  { id: 'status', label: 'Status' },
+                  { id: 'nome', label: 'NOME' },
+                  { id: 'cpf', label: 'CPF' },
+                  { id: 'telefone', label: 'TELEFONE' },
+                  { id: 'endereco', label: 'ENDEREÇO' },
+                  { id: 'complemento', label: 'COMPLEMENTO' },
+                  { id: 'observacoes', label: 'OBSERVAÇÕES' },
+                  { id: 'status', label: 'STATUS' },
                   { id: '' },
                 ]}
               />
@@ -137,11 +139,12 @@ export default function MoradorPage() {
                     <UserTableRow
                       key={row.id}
                       name={row.name}
-                      role={row.role}
+                      cpf={row.cpf}
+                      telefone={row.telefone}
+                      endereco={row.endereco}
+                      complemento={row.complemento}
+                      observacoes={row.observacoes}
                       status={row.status}
-                      company={row.company}
-                      avatarUrl={row.avatarUrl}
-                      isVerified={row.isVerified}
                       selected={selected.indexOf(row.name) !== -1}
                       handleClick={(event) => handleClick(event, row.name)}
                     />

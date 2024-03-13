@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 
-import { MoradoresView } from 'src/sections/moradores/view';
+import { MoradorPage } from 'src/sections/moradores/view';
 
 // ----------------------------------------------------------------------
 
-export default function UserPage() {
+export default function MoradoresPage() {
   return (
     <>
       <Helmet>
         <title> Moradores | DeVence </title>
       </Helmet>
 
-      <MoradoresView />
+      <MoradorPage />
     </>
   );
 }
