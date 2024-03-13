@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import Iconify from 'src/components/iconify';
 import AppTasks from '../app-tasks';
 import AppNewsUpdate from '../app-news-update';
@@ -19,8 +19,6 @@ import AppConversionRates from '../app-conversion-rates';
 
 export default function AppView() {
   const navigate = useNavigate();
-  const userData = JSON.parse(sessionStorage.getItem('userData'));
-  const username = userData?.username;
 
   const [totalMoradores, setTotalMoradores] = useState(0);
 
@@ -40,10 +38,6 @@ export default function AppView() {
 
   return (
     <Container maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Olá, {username}
-      </Typography>
-
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
