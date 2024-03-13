@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -9,8 +9,6 @@ import TableBody from '@mui/material/TableBody';
 import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
-
-import { users } from 'src/_mock/user';
 
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
@@ -26,16 +24,20 @@ import { emptyRows, applyFilter, getComparator } from '../utils';
 
 export default function MoradorPage() {
   const [page, setPage] = useState(0);
-
   const [order, setOrder] = useState('asc');
-
   const [selected, setSelected] = useState([]);
-
   const [orderBy, setOrderBy] = useState('name');
-
   const [filterName, setFilterName] = useState('');
-
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const [moradores, setMoradores] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost/devence-condo/backend/api/select_all_moradores.php')
+      .then((response) => response.json())
+      .then((data) => setMoradores(data.data.moradores))
+      .catch((error) => console.error('Error:', error));
+  }, []);
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === 'asc';
@@ -47,7 +49,7 @@ export default function MoradorPage() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = users.map((n) => n.name);
+      const newSelecteds = moradores.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -81,13 +83,12 @@ export default function MoradorPage() {
     setRowsPerPage(parseInt(event.target.value, 10));
   };
 
-  const handleFilterByName = (event) => {
-    setPage(0);
-    setFilterName(event.target.value);
+  const handleFilterByName = (newFilter) => {
+    setFilterName(newFilter);
   };
 
   const dataFiltered = applyFilter({
-    inputData: users,
+    inputData: moradores,
     comparator: getComparator(order, orderBy),
     filterName,
   });
@@ -117,7 +118,7 @@ export default function MoradorPage() {
               <UserTableHead
                 order={order}
                 orderBy={orderBy}
-                rowCount={users.length}
+                rowCount={moradores.length}
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
@@ -135,24 +136,24 @@ export default function MoradorPage() {
               <TableBody>
                 {dataFiltered
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => (
+                  .map((morador) => (
                     <UserTableRow
-                      key={row.id}
-                      name={row.name}
-                      cpf={row.cpf}
-                      telefone={row.telefone}
-                      endereco={row.endereco}
-                      complemento={row.complemento}
-                      observacoes={row.observacoes}
-                      status={row.status}
-                      selected={selected.indexOf(row.name) !== -1}
-                      handleClick={(event) => handleClick(event, row.name)}
+                      key={morador.id}
+                      selected={selected.indexOf(morador.id) !== -1}
+                      name={morador.nome}
+                      cpf={morador.cpf}
+                      telefone={morador.telefone}
+                      endereco={morador.endereco}
+                      complemento={morador.complemento}
+                      observacoes={morador.observacoes}
+                      status={morador.status}
+                      handleClick={(event) => handleClick(event, morador.id)}
                     />
                   ))}
 
                 <TableEmptyRows
                   height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, users.length)}
+                  emptyRows={emptyRows(page, rowsPerPage, dataFiltered.length)}
                 />
 
                 {notFound && <TableNoData query={filterName} />}
@@ -164,7 +165,7 @@ export default function MoradorPage() {
         <TablePagination
           page={page}
           component="div"
-          count={users.length}
+          count={dataFiltered.length}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}

@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
-
 import Tooltip from '@mui/material/Tooltip';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-
 import Iconify from 'src/components/iconify';
 
-// ----------------------------------------------------------------------
-
 export default function UserTableToolbar({ numSelected, filterName, onFilterName }) {
+  const handleChange = (event) => {
+    onFilterName(event.target.value);
+  };
+
   return (
     <Toolbar
       sx={{
@@ -32,7 +32,7 @@ export default function UserTableToolbar({ numSelected, filterName, onFilterName
       ) : (
         <OutlinedInput
           value={filterName}
-          onChange={onFilterName}
+          onChange={handleChange}
           placeholder="Buscar moradores..."
           startAdornment={
             <InputAdornment position="start">
