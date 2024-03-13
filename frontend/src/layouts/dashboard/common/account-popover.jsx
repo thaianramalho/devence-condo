@@ -8,7 +8,7 @@ import { alpha } from '@mui/material/styles';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-
+import { getUserData } from 'src/utils/get-user-data';
 import { account } from 'src/_mock/account';
 
 // ----------------------------------------------------------------------
@@ -33,8 +33,7 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
 
-  const userData = JSON.parse(sessionStorage.getItem('userData'));
-  const username = userData?.username;
+  const { username } = getUserData();
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -72,14 +71,14 @@ export default function AccountPopover() {
       >
         <Avatar
           src={account.photoURL}
-          alt={username}
+          alt={username ? username.toUpperCase() : 'Usuário'}
           sx={{
             width: 36,
             height: 36,
             border: (theme) => `solid 2px ${theme.palette.background.default}`,
           }}
         >
-          {username ? username.toUpperCase() : ''}
+          {username ? username.toUpperCase() : 'Usuário'}
         </Avatar>
       </IconButton>
 
@@ -100,7 +99,7 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {username}
+            {username ? username.toUpperCase() : 'Usuário'}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {account.email}

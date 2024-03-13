@@ -25,7 +25,7 @@ import navConfig from './config-navigation';
 // ----------------------------------------------------------------------
 
 export default function Nav({ openNav, onCloseNav }) {
-  const { userData, username } = getUserData();
+  const { username } = getUserData();
 
   const pathname = usePathname();
 
