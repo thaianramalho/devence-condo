@@ -13,8 +13,8 @@ coverage
 .swc
 _static
 out
-build
 dist
+build
 
 # environment variables
 .env
