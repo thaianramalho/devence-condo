@@ -120,7 +120,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             session_start();
             $_SESSION['username'] = $row['username'];
             $username = $_SESSION['username'];
-            echo createResponse('success', 'Logged in successfully.', ['username' => $_SESSION['username']]);
+
+            $_SESSION['email'] = base64_decode($row['email']);
+            $email = $_SESSION['email'];
+
+            echo createResponse('success', 'Logged in successfully.', ['username' => $_SESSION['username'], 'email' => $_SESSION['email']]);
         } else {
             echo createResponse('error', "Informações de login incorretas.", []);
             exit;

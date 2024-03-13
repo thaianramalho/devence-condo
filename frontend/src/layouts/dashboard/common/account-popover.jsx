@@ -33,7 +33,7 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
 
-  const { username } = getUserData();
+  const { username, email } = getUserData();
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -102,7 +102,7 @@ export default function AccountPopover() {
             {username ? username.toUpperCase() : 'Usuário'}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {email ? email.toUpperCase() : 'E-mail'}
           </Typography>
         </Box>
 

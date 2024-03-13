@@ -4,7 +4,7 @@
 
 $config = array(
     'db_hostname' => 'localhost',
-    'db_name' => 'login_system',
+    'db_name' => 'condominio',
     'db_username' => 'root',
     'db_password' => '',
 );
