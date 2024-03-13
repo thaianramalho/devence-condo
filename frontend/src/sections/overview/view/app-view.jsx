@@ -14,6 +14,7 @@ import AppWidgetSummary from '../app-widget-summary';
 import AppTrafficBySite from '../app-traffic-by-site';
 import AppCurrentSubject from '../app-current-subject';
 import AppConversionRates from '../app-conversion-rates';
+import { number } from 'prop-types';
 
 // ----------------------------------------------------------------------
 
@@ -21,6 +22,11 @@ export default function AppView() {
   const navigate = useNavigate();
 
   const [totalMoradores, setTotalMoradores] = useState(0);
+  const [totalVisitantes, setTotalVisitantes] = useState(0);
+  const [totalColaboradores, setTotalColaboradores] = useState(0);
+  const [totalFamiliares, setTotalFamiliares] = useState(0);
+  const [totalTerceirizados, setTotalTerceirizados] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0);
 
   useEffect(() => {
     const loggedIn = sessionStorage.getItem('loggedIn');
@@ -30,48 +36,73 @@ export default function AppView() {
   }, [navigate]);
 
   useEffect(() => {
-    fetch('http://localhost/devence-condo/backend/api/select_numero_moradores.php')
+    fetch('http://localhost/devence-condo/backend/api/select_numero_usuarios_cadastrados.php')
       .then((response) => response.json())
-      .then((data) => setTotalMoradores(data.data.residents[0].total_moradores))
+      .then((data) => {
+        setTotalMoradores(data.data.total_moradores);
+        setTotalVisitantes(data.data.total_visitantes);
+        setTotalColaboradores(data.data.total_colaboradores);
+        setTotalFamiliares(data.data.total_familiares);
+        setTotalTerceirizados(data.data.total_terceirizados);
+        setTotalUsers(data.data.total_users);
+      })
       .catch((error) => console.error(error));
   }, []);
 
   return (
     <Container maxWidth="xl">
       <Grid container spacing={3}>
-        <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
-            title="Weekly Sales"
-            total={714000}
-            color="success"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
-          />
-        </Grid>
-
-        <Grid xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
             title="Moradores"
             total={Number(totalMoradores)}
+            color="success"
+            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+          />
+        </Grid>
+
+        <Grid xs={12} sm={6} md={4}>
+          <AppWidgetSummary
+            title="Visitantes"
+            total={Number(totalVisitantes)}
             color="info"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
           />
         </Grid>
 
-        <Grid xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
-            title="Pedidos"
-            total={1723315}
-            color="warning"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
+            title="Colaboradores"
+            total={Number(totalColaboradores)}
+            color="info"
+            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
           />
         </Grid>
 
-        <Grid xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
-            title="Bug Reports"
-            total={234}
+            title="Amigos/Familiares"
+            total={Number(totalFamiliares)}
+            color="info"
+            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+          />
+        </Grid>
+
+        <Grid xs={12} sm={6} md={4}>
+          <AppWidgetSummary
+            title="Terceirizados"
+            total={Number(totalTerceirizados)}
+            color="warning"
+            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+          />
+        </Grid>
+
+        <Grid xs={12} sm={6} md={4}>
+          <AppWidgetSummary
+            title="Total"
+            total={Number(totalUsers)}
             color="error"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
+            icon={<img alt="icon" src="assets/icons/ic_list.svg" />}
           />
         </Grid>
 
