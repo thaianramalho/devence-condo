@@ -29,7 +29,7 @@ export default function LoginView() {
         password,
       });
       if (response.data.status === 'success') {
-        sessionStorage.setItem('loggedIn', true);
+        sessionStorage.setItem('DvxE8dngEActqevLwZW8oNTGKq327SYnLYoRf5zDT2jUA8Nsy3J0NekG6FRyA0', true);
         sessionStorage.setItem('userData', JSON.stringify(response.data.data));
         window.location.href = '/';
       } else {

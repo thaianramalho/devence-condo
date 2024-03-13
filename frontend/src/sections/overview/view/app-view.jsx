@@ -27,7 +27,7 @@ export default function AppView() {
   const [totalUsers, setTotalUsers] = useState(0);
 
   useEffect(() => {
-    const loggedIn = sessionStorage.getItem('loggedIn');
+    const loggedIn = sessionStorage.getItem('DvxE8dngEActqevLwZW8oNTGKq327SYnLYoRf5zDT2jUA8Nsy3J0NekG6FRyA0');
     if (!loggedIn) {
       navigate('/login');
     }
