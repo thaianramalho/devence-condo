@@ -76,7 +76,7 @@ export default function Nav({ openNav, onCloseNav }) {
       <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
         <Box
           component="img"
-          src="dist/assets/illustrations/logodv.png"
+          src="assets/illustrations/logodv.png"
           sx={{ width: 100, position: 'absolute', top: -50 }}
         />
       </Stack>
