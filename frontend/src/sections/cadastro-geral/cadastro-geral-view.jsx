@@ -27,22 +27,22 @@ export default function CadastroGeralForm() {
   }, []);
 
   const getApiUrl = () => {
+    const passwordParam = '?senha=dxic5CyB';
     switch (userType) {
       case 'morador':
-        return 'http://localhost/devence-condo/backend/api/create_morador.php';
+        return `http://localhost/devence-condo/backend/api/create_morador.php${passwordParam}`;
       case 'visitante':
-        return 'http://localhost/devence-condo/backend/api/create_visitante.php';
+        return `http://localhost/devence-condo/backend/api/create_visitante.php${passwordParam}`;
       case 'colaborador':
-        return 'http://localhost/devence-condo/backend/api/create_colaborador.php';
+        return `http://localhost/devence-condo/backend/api/create_colaborador.php${passwordParam}`;
       case 'amigoFamiliar':
-        return 'http://localhost/devence-condo/backend/api/create_amigo_familiar.php';
+        return `http://localhost/devence-condo/backend/api/create_amigo_familiar.php${passwordParam}`;
       case 'terceirizado':
-        return 'http://localhost/devence-condo/backend/api/create_terceirizado.php';
+        return `http://localhost/devence-condo/backend/api/create_terceirizado.php${passwordParam}`;
       default:
-        return 'http://localhost/devence-condo/backend/api/create_visitante.php';
+        return `http://localhost/devence-condo/backend/api/create_visitante.php${passwordParam}`;
     }
   };
-
   const onSubmit = (formData) => {
     fetch(getApiUrl(userType), {
       method: 'POST',
@@ -54,6 +54,11 @@ export default function CadastroGeralForm() {
       .then((response) => response.json())
       .then((responseData) => {
         console.log('Success:', responseData);
+        if (responseData.status === 'success') {
+          alert('Cadastro realizado com sucesso!');
+        } else {
+          alert('Ocorreu um erro ao realizar o cadastro.');
+        }
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -77,8 +82,8 @@ export default function CadastroGeralForm() {
             label="Cartão"
             variant="outlined"
             fullWidth
-            color="success"
-            error={!cardNumber}
+            color={cardNumber ? 'success' : 'error'}
+            placeholder={!cardNumber ? 'O usuário será cadastrado sem cartão.' : ''}
             inputProps={{
               readOnly: true,
               value: cardNumber,
@@ -86,7 +91,7 @@ export default function CadastroGeralForm() {
           />
           <TextField
             {...register('nome', { required: true })}
-            label="Nome"
+            label="Nome *"
             variant="outlined"
             fullWidth
             error={!!errors.nome}
@@ -94,7 +99,7 @@ export default function CadastroGeralForm() {
           />
           <TextField
             {...register('cpf', { required: true })}
-            label="CPF"
+            label="CPF *"
             variant="outlined"
             fullWidth
             error={!!errors.cpf}
@@ -102,7 +107,7 @@ export default function CadastroGeralForm() {
           />
           <TextField
             {...register('telefone', { required: true })}
-            label="Telefone"
+            label="Telefone *"
             variant="outlined"
             fullWidth
             error={!!errors.telefone}

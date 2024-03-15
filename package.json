@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "@mui/base": "^5.0.0-beta.39",
     "@mui/styles": "^5.15.13"
   }
