@@ -3,6 +3,7 @@ import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
 import MoradoresPage from 'src/pages/moradores';
+import { CadastroGeralPage } from 'src/sections/cadastro-geral';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -30,6 +31,7 @@ export default function Router() {
         { path: 'moradores', element: <MoradoresPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
+        { path: 'cadastrogeral', element: <CadastroGeralPage /> },
       ],
     },
     {

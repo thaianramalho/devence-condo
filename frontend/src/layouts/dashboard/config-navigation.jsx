@@ -13,10 +13,15 @@ const navConfig = [
     icon: icon('ic_analytics'),
   },
   {
-    title: 'user',
-    path: '/user',
+    title: 'Novo Cadastro',
+    path: '/cadastrogeral',
     icon: icon('ic_user'),
   },
+  // {
+  //   title: 'user',
+  //   path: '/user',
+  //   icon: icon('ic_user'),
+  // },
   {
     title: 'Moradores',
     path: '/moradores',

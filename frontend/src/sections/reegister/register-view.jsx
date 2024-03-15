@@ -30,7 +30,7 @@ function Register() {
     if (masterPassword === 'Dv:rfiduhf2024') {
       setMasterPasswordEntered(true);
     } else {
-      setApiResponse('Senha mestra incorreta');
+      setApiResponse('Senha incorreta');
     }
   };
 
@@ -43,7 +43,7 @@ function Register() {
           onChange={handleMasterPasswordChange}
           variant="filled"
           id="filled-basic"
-          label="Senha mestra"
+          label="Senha"
           fullWidth
           style={{ marginBottom: '20px' }}
         />

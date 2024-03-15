@@ -1,16 +1,16 @@
 import { Helmet } from 'react-helmet-async';
-import { RegisterView } from 'src/sections/reegister';
+import { CadastroGeralPage } from 'src/sections/cadastro-geral';
 
 // ----------------------------------------------------------------------
 
-export default function RegisterPage() {
+export default function CadastroGeral() {
   return (
     <>
       <Helmet>
-        <title> Cadastrar Usuário | DeVence </title>
+        <title> Novo Cadastro | DeVence </title>
       </Helmet>
 
-      <RegisterView />
+      <CadastroGeralPage />
     </>
   );
 }
