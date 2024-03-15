@@ -44,6 +44,12 @@ export default function CadastroGeralForm() {
     }
   };
   const onSubmit = (formData) => {
+    formData.nome = formData.nome.toUpperCase();
+    formData.endereco = formData.endereco?.toUpperCase();
+    formData.complemento = formData.complemento?.toUpperCase();
+    formData.cargo = formData.cargo?.toUpperCase();
+    formData.observacoes = formData.observacoes?.toUpperCase();
+
     fetch(getApiUrl(userType), {
       method: 'POST',
       headers: {
@@ -57,7 +63,7 @@ export default function CadastroGeralForm() {
         if (responseData.status === 'success') {
           alert('Cadastro realizado com sucesso!');
         } else {
-          alert('Ocorreu um erro ao realizar o cadastro.');
+          alert(`Ocorreu um erro ao realizar o cadastro.\n ${responseData.message}`);
         }
       })
       .catch((error) => {
@@ -98,20 +104,20 @@ export default function CadastroGeralForm() {
             helperText={errors.nome && 'Nome é obrigatório'}
           />
           <TextField
-            {...register('cpf', { required: true })}
+            {...register('cpf', { required: true, pattern: /^[0-9]*$/ })}
             label="CPF *"
             variant="outlined"
             fullWidth
             error={!!errors.cpf}
-            helperText={errors.cpf && 'CPF é obrigatório'}
+            helperText={errors.cpf && 'CPF é obrigatório e deve conter apenas números.'}
           />
           <TextField
-            {...register('telefone', { required: true })}
+            {...register('telefone', { required: true, pattern: /^[0-9]*$/ })}
             label="Telefone *"
             variant="outlined"
             fullWidth
             error={!!errors.telefone}
-            helperText={errors.telefone && 'Telefone é obrigatório'}
+            helperText={errors.telefone && 'Telefone é obrigatório e deve conter apenas números.'}
           />
           {userType !== 'visitante' && (
             <TextField {...register('endereco')} label="Endereço" variant="outlined" fullWidth />
