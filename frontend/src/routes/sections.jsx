@@ -2,8 +2,10 @@ import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
+import FamiliaresPage from 'src/pages/familiares';
 import MoradoresPage from 'src/pages/moradores';
 import { CadastroGeralPage } from 'src/sections/cadastro-geral';
+import EdicaoGeralForm from 'src/sections/edit-geral/edit-geral-view';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -29,6 +31,7 @@ export default function Router() {
         { element: <IndexPage />, index: true },
         { path: 'user', element: <UserPage /> },
         { path: 'moradores', element: <MoradoresPage /> },
+        { path: 'familiares', element: <FamiliaresPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'cadastrogeral', element: <CadastroGeralPage /> },

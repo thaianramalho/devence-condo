@@ -22,6 +22,13 @@ if (isset($_GET['senha']) && $_GET['senha'] === $senhaCorreta) {
             $stmt = $connection->prepare($sql);
             $stmt->execute([$data['nome'], $data['cpf'], $data['telefone'], $data['endereco'], $data['complemento'], $data['observacoes']]);
 
+            if (isset($data['cartao_rfid'])) {
+                $morador_id = $connection->lastInsertId();
+                $sql = "INSERT INTO rfid (morador_id, numero) VALUES (?, ?)";
+                $stmt = $connection->prepare($sql);
+                $stmt->execute([$morador_id, $data['cartao_rfid']]);
+            }
+
             echo json_encode(['status' => 'success']);
         }
     } catch (PDOException $e) {

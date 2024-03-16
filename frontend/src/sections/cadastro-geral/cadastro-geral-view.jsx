@@ -87,7 +87,7 @@ export default function CadastroGeralForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
           <TextField
-            {...register('cartao', { required: true })}
+            {...register('cartao_rfid', { required: true })}
             label="Cartão"
             variant="outlined"
             fullWidth

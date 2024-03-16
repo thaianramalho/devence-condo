@@ -14,13 +14,13 @@ function createResponse($status, $message, $data = [])
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $sql = "SELECT * FROM moradores ORDER BY id DESC";
+    $sql = "SELECT * FROM familiares ORDER BY id DESC";
     $query = $connection->prepare($sql);
     $query->execute();
-    $moradores = $query->fetchAll(PDO::FETCH_ASSOC);
+    $familiares = $query->fetchAll(PDO::FETCH_ASSOC);
 
     echo createResponse('success', 'Data fetched successfully.', [
-        'moradores' => $moradores
+        'familiares' => $familiares
     ]);
     exit;
 }

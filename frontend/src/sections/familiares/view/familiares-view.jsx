@@ -22,7 +22,7 @@ import { emptyRows, applyFilter, getComparator } from '../utils';
 
 // ----------------------------------------------------------------------
 
-export default function MoradorPage() {
+export default function FamiliarPage() {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -30,12 +30,12 @@ export default function MoradorPage() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [moradores, setMoradores] = useState([]);
+  const [familiares, setfamiliares] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost/devence-condo/backend/api/select_all_moradores.php')
+    fetch('http://localhost/devence-condo/backend/api/select_all_familiares.php')
       .then((response) => response.json())
-      .then((data) => setMoradores(data.data.moradores))
+      .then((data) => setfamiliares(data.data.familiares))
       .catch((error) => console.error('Error:', error));
   }, []);
 
@@ -49,7 +49,7 @@ export default function MoradorPage() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = moradores.map((n) => n.name);
+      const newSelecteds = familiares.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -88,7 +88,7 @@ export default function MoradorPage() {
   };
 
   const dataFiltered = applyFilter({
-    inputData: moradores,
+    inputData: familiares,
     comparator: getComparator(order, orderBy),
     filterName,
   });
@@ -98,7 +98,7 @@ export default function MoradorPage() {
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Moradores</Typography>
+        <Typography variant="h4">familiares</Typography>
 
         <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
           Novo morador
@@ -118,7 +118,7 @@ export default function MoradorPage() {
               <UserTableHead
                 order={order}
                 orderBy={orderBy}
-                rowCount={moradores.length}
+                rowCount={familiares.length}
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
@@ -127,7 +127,6 @@ export default function MoradorPage() {
                   { id: 'cpf', label: 'CPF' },
                   { id: 'telefone', label: 'TELEFONE' },
                   { id: 'endereco', label: 'ENDEREÇO' },
-                  { id: 'complemento', label: 'COMPLEMENTO' },
                   { id: 'observacoes', label: 'OBSERVAÇÕES' },
                   { id: '' },
                 ]}
@@ -143,7 +142,6 @@ export default function MoradorPage() {
                       cpf={morador.cpf}
                       telefone={morador.telefone}
                       endereco={morador.endereco}
-                      complemento={morador.complemento}
                       observacoes={morador.observacoes}
                       handleClick={(event) => handleClick(event, morador.id)}
                     />
