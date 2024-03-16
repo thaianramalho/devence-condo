@@ -16,6 +16,7 @@ export default function CadastroGeralForm() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const [cardNumber, setCardNumber] = useState('');
   const [userType, setUserType] = useState('visitante');
@@ -43,6 +44,7 @@ export default function CadastroGeralForm() {
         return `http://localhost/devence-condo/backend/api/create_visitante.php${passwordParam}`;
     }
   };
+
   const onSubmit = (formData) => {
     formData.nome = formData.nome.toUpperCase();
     formData.endereco = formData.endereco?.toUpperCase();
@@ -62,6 +64,7 @@ export default function CadastroGeralForm() {
         console.log('Success:', responseData);
         if (responseData.status === 'success') {
           alert('Cadastro realizado com sucesso!');
+          reset();
         } else {
           alert(`Ocorreu um erro ao realizar o cadastro.\n ${responseData.message}`);
         }

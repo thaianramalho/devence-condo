@@ -18,9 +18,9 @@ if (isset($_GET['senha']) && $_GET['senha'] === $senhaCorreta) {
         if ($result) {
             echo json_encode(['status' => 'error', 'message' => 'CPF já existe']);
         } else {
-            $sql = "INSERT INTO familiares (nome, cpf, telefone, endereco, , observacoes) VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO familiares (nome, cpf, telefone, endereco, observacoes) VALUES (?, ?, ?, ?, ?)";
             $stmt = $connection->prepare($sql);
-            $stmt->execute([$data['nome'], $data['cpf'], $data['telefone'], $data['endereco'], $data['observacoes']]);
+            $stmt->execute([$data['nome'], $data['cpf'], $data['telefone'], $data['endereco'],  $data['observacoes']]);
 
             echo json_encode(['status' => 'success']);
         }
