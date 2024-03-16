@@ -5,7 +5,6 @@ import DashboardLayout from 'src/layouts/dashboard';
 import FamiliaresPage from 'src/pages/familiares';
 import MoradoresPage from 'src/pages/moradores';
 import { CadastroGeralPage } from 'src/sections/cadastro-geral';
-import EdicaoGeralForm from 'src/sections/edit-geral/edit-geral-view';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
