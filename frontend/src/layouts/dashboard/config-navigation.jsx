@@ -18,12 +18,17 @@ const navConfig = [
     icon: icon('ic_user'),
   },
   {
+    title: 'Visitantes',
+    path: '/visitantes',
+    icon: icon('ic_user'),
+  },
+  {
     title: 'Moradores',
     path: '/moradores',
     icon: icon('ic_user'),
   },
   {
-    title: 'Familiares',
+    title: 'Amigos/Familiares',
     path: '/familiares',
     icon: icon('ic_user'),
   },

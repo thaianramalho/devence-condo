@@ -4,6 +4,7 @@ import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 import DashboardLayout from 'src/layouts/dashboard';
 import FamiliaresPage from 'src/pages/familiares';
 import MoradoresPage from 'src/pages/moradores';
+import VisitantesPage from 'src/pages/visitantes';
 import { CadastroGeralPage } from 'src/sections/cadastro-geral';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
@@ -29,6 +30,7 @@ export default function Router() {
       children: [
         { element: <IndexPage />, index: true },
         { path: 'user', element: <UserPage /> },
+        { path: 'visitantes', element: <VisitantesPage /> },
         { path: 'moradores', element: <MoradoresPage /> },
         { path: 'familiares', element: <FamiliaresPage /> },
         { path: 'products', element: <ProductsPage /> },

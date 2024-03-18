@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 
-import { FamiliarPage } from 'src/sections/familiares/view';
+import { VisitantePage } from 'src/sections/visitantes/view';
 
 // ----------------------------------------------------------------------
 
-export default function FamiliaresPage() {
+export default function VisitantesPage() {
   return (
     <>
       <Helmet>
-        <title> Amigos/Familiares | DeVence </title>
+        <title> Visitantes | DeVence </title>
       </Helmet>
 
-      <FamiliarPage />
+      <VisitantePage />
     </>
   );
 }

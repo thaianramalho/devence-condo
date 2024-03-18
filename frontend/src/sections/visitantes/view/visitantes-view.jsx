@@ -23,7 +23,7 @@ import { emptyRows, applyFilter, getComparator } from '../utils';
 
 // ----------------------------------------------------------------------
 
-export default function FamiliarPage() {
+export default function VisitantePage() {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
@@ -32,12 +32,12 @@ export default function FamiliarPage() {
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [familiares, setfamiliares] = useState([]);
+  const [visitantes, setvisitantes] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost/devence-condo/backend/api/select_all_familiares.php')
+    fetch('http://localhost/devence-condo/backend/api/select_all_visitantes.php')
       .then((response) => response.json())
-      .then((data) => setfamiliares(data.data.familiares))
+      .then((data) => setvisitantes(data.data.visitantes))
       .catch((error) => console.error('Error:', error));
   }, []);
 
@@ -51,7 +51,7 @@ export default function FamiliarPage() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = familiares.map((n) => n.name);
+      const newSelecteds = visitantes.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -90,7 +90,7 @@ export default function FamiliarPage() {
   };
 
   const dataFiltered = applyFilter({
-    inputData: familiares,
+    inputData: visitantes,
     comparator: getComparator(order, orderBy),
     filterName,
   });
@@ -104,7 +104,7 @@ export default function FamiliarPage() {
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Amigos / Familiares</Typography>
+        <Typography variant="h4">Visitantes</Typography>
 
         <Button
           variant="contained"
@@ -129,7 +129,7 @@ export default function FamiliarPage() {
               <UserTableHead
                 order={order}
                 orderBy={orderBy}
-                rowCount={familiares.length}
+                rowCount={visitantes.length}
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
@@ -138,6 +138,7 @@ export default function FamiliarPage() {
                   { id: 'cpf', label: 'CPF' },
                   { id: 'telefone', label: 'TELEFONE' },
                   { id: 'endereco', label: 'ENDEREÇO' },
+                  { id: 'complemento', label: 'COMPLEMENTO' },
                   { id: 'observacoes', label: 'OBSERVAÇÕES' },
                   { id: '' },
                 ]}
@@ -153,6 +154,7 @@ export default function FamiliarPage() {
                       cpf={morador.cpf}
                       telefone={morador.telefone}
                       endereco={morador.endereco}
+                      complemento={morador.complemento}
                       observacoes={morador.observacoes}
                       handleClick={(event) => handleClick(event, morador.id)}
                     />
