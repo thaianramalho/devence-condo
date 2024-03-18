@@ -137,8 +137,6 @@ export default function VisitantePage() {
                   { id: 'nome', label: 'NOME' },
                   { id: 'cpf', label: 'CPF' },
                   { id: 'telefone', label: 'TELEFONE' },
-                  { id: 'endereco', label: 'ENDEREÇO' },
-                  { id: 'complemento', label: 'COMPLEMENTO' },
                   { id: 'observacoes', label: 'OBSERVAÇÕES' },
                   { id: '' },
                 ]}
@@ -153,8 +151,6 @@ export default function VisitantePage() {
                       name={morador.nome}
                       cpf={morador.cpf}
                       telefone={morador.telefone}
-                      endereco={morador.endereco}
-                      complemento={morador.complemento}
                       observacoes={morador.observacoes}
                       handleClick={(event) => handleClick(event, morador.id)}
                     />

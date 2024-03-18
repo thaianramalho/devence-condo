@@ -10,23 +10,11 @@ import MenuItem from '@mui/material/MenuItem';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-
-import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function UserTableRow({
-  selected,
-  name,
-  cpf,
-  telefone,
-  endereco,
-  complemento,
-  observacoes,
-  status,
-  handleClick,
-}) {
+export default function UserTableRow({ selected, name, cpf, telefone, observacoes, handleClick }) {
   const [open, setOpen] = useState(null);
 
   const handleOpenMenu = (event) => {
@@ -54,15 +42,7 @@ export default function UserTableRow({
 
         <TableCell>{telefone}</TableCell>
 
-        <TableCell>{endereco}</TableCell>
-
-        <TableCell>{complemento}</TableCell>
-
         <TableCell>{observacoes}</TableCell>
-
-        <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
-        </TableCell>
 
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
@@ -98,11 +78,8 @@ export default function UserTableRow({
 UserTableRow.propTypes = {
   cpf: PropTypes.any,
   telefone: PropTypes.any,
-  endereco: PropTypes.any,
-  complemento: PropTypes.any,
   observacoes: PropTypes.any,
   handleClick: PropTypes.func,
   name: PropTypes.any,
-  status: PropTypes.string,
   selected: PropTypes.any,
 };

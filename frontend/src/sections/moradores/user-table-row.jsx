@@ -10,8 +10,6 @@ import MenuItem from '@mui/material/MenuItem';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-
-import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
@@ -24,7 +22,6 @@ export default function UserTableRow({
   endereco,
   complemento,
   observacoes,
-  status,
   handleClick,
 }) {
   const [open, setOpen] = useState(null);
@@ -59,10 +56,6 @@ export default function UserTableRow({
         <TableCell>{complemento}</TableCell>
 
         <TableCell>{observacoes}</TableCell>
-
-        <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
-        </TableCell>
 
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
@@ -103,6 +96,5 @@ UserTableRow.propTypes = {
   observacoes: PropTypes.any,
   handleClick: PropTypes.func,
   name: PropTypes.any,
-  status: PropTypes.string,
   selected: PropTypes.any,
 };
