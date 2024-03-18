@@ -9,6 +9,7 @@ import TableBody from '@mui/material/TableBody';
 import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
+import { useNavigate } from 'react-router-dom';
 
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
@@ -23,6 +24,7 @@ import { emptyRows, applyFilter, getComparator } from '../utils';
 // ----------------------------------------------------------------------
 
 export default function MoradorPage() {
+  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -95,13 +97,22 @@ export default function MoradorPage() {
 
   const notFound = !dataFiltered.length && !!filterName;
 
+  const novoCadastroClick = () => {
+    navigate('/cadastrogeral');
+  };
+
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4">Moradores</Typography>
 
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
-          Novo morador
+        <Button
+          variant="contained"
+          color="inherit"
+          onClick={novoCadastroClick}
+          startIcon={<Iconify icon="eva:plus-fill" />}
+        >
+          Novo cadastro
         </Button>
       </Stack>
 
