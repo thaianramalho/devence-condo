@@ -32,6 +32,11 @@ const navConfig = [
     path: '/familiares',
     icon: icon('ic_user'),
   },
+  {
+    title: 'Colaboradores',
+    path: '/colaboradores',
+    icon: icon('ic_user'),
+  },
 ];
 
 export default navConfig;

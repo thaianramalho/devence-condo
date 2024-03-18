@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
+import ColaboradoresPage from 'src/pages/colaboradores';
 import FamiliaresPage from 'src/pages/familiares';
 import MoradoresPage from 'src/pages/moradores';
 import VisitantesPage from 'src/pages/visitantes';
@@ -32,6 +33,7 @@ export default function Router() {
         { path: 'user', element: <UserPage /> },
         { path: 'visitantes', element: <VisitantesPage /> },
         { path: 'moradores', element: <MoradoresPage /> },
+        { path: 'colaboradores', element: <ColaboradoresPage /> },
         { path: 'familiares', element: <FamiliaresPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
