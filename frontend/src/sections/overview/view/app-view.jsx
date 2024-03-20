@@ -3,18 +3,23 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+
+
 // import Typography from '@mui/material/Typography';
-import Iconify from 'src/components/iconify';
+// import Iconify from 'src/components/iconify';
 import AppTasks from '../app-tasks';
 import AppNewsUpdate from '../app-news-update';
 import AppOrderTimeline from '../app-order-timeline';
-import AppCurrentVisits from '../app-current-visits';
+// import AppCurrentVisits from '../app-current-visits';
 import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
-import AppTrafficBySite from '../app-traffic-by-site';
-import AppCurrentSubject from '../app-current-subject';
-import AppConversionRates from '../app-conversion-rates';
+import AppEntradas from '../app-entradas';
+// import AppTrafficBySite from '../app-traffic-by-site';
+// import AppCurrentSubject from '../app-current-subject';
+// import AppConversionRates from '../app-conversion-rates';
 // ----------------------------------------------------------------------
+
+
 
 export default function AppView() {
   const navigate = useNavigate();
@@ -55,7 +60,7 @@ export default function AppView() {
             title="Moradores"
             total={Number(totalMoradores)}
             color="success"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+            icon={<img alt="icon" src="/assets/icons/comum/user-solid.svg" />}
           />
         </Grid>
 
@@ -64,7 +69,7 @@ export default function AppView() {
             title="Visitantes"
             total={Number(totalVisitantes)}
             color="info"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+            icon={<img alt="icon" src="/assets/icons/comum/person-shelter-solid.svg" />}
           />
         </Grid>
 
@@ -73,7 +78,12 @@ export default function AppView() {
             title="Colaboradores"
             total={Number(totalColaboradores)}
             color="info"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+            icon={
+              <img 
+                alt="icon" 
+                src="/assets/icons/comum/handshake-solid.svg" 
+              />
+            }                 
           />
         </Grid>
 
@@ -82,7 +92,7 @@ export default function AppView() {
             title="Amigos/Familiares"
             total={Number(totalFamiliares)}
             color="info"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+            icon={<img alt="icon" src="/assets/icons/comum/users-solid.svg" />}
           />
         </Grid>
 
@@ -91,7 +101,7 @@ export default function AppView() {
             title="Terceirizados"
             total={Number(totalTerceirizados)}
             color="warning"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+            icon={<img alt="icon" src="/assets/icons/comum/person-digging-solid.svg" />}
           />
         </Grid>
 
@@ -100,9 +110,27 @@ export default function AppView() {
             title="Total"
             total={Number(totalUsers)}
             color="error"
-            icon={<img alt="icon" src="assets/icons/ic_list.svg" />}
+            icon={<img alt="icon" src="assets/icons/comum/list-solid (1).svg" />}
           />
         </Grid>
+
+
+       
+          <Grid xs={6} sm={6} md={6}>
+            <AppEntradas
+              name="João da Silva"
+              phone="(11) 99999-9999"
+              hour="10:00"
+            />
+          </Grid>
+          <Grid xs={6} sm={6} md={6}>
+            <AppEntradas
+              name="João da Silva"
+              phone="(11) 99999-9999"
+              hour="10:00"
+            />
+          </Grid>
+        
 
         <Grid xs={12} md={6} lg={8}>
           <AppWebsiteVisits
@@ -142,6 +170,24 @@ export default function AppView() {
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>
+          <AppOrderTimeline
+            title="Order Timeline"
+            list={[...Array(5)].map((_, index) => ({
+              id: faker.string.uuid(),
+              title: [
+                '1983, orders, $4220',
+                '12 Invoices have been paid',
+                'Order #37745 from September',
+                'New order placed #XF-2356',
+                'New order placed #XF-2346',
+              ][index],
+              type: `order${index + 1}`,
+              time: faker.date.past(),
+            }))}
+          />
+        </Grid>
+
+        {/* <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits
             title="Current Visits"
             chart={{
@@ -153,9 +199,9 @@ export default function AppView() {
               ],
             }}
           />
-        </Grid>
+        </Grid> */}
 
-        <Grid xs={12} md={6} lg={8}>
+        {/* <Grid xs={12} md={6} lg={8}>
           <AppConversionRates
             title="Conversion Rates"
             subheader="(+43%) than last year"
@@ -174,9 +220,9 @@ export default function AppView() {
               ],
             }}
           />
-        </Grid>
+        </Grid> */}
 
-        <Grid xs={12} md={6} lg={4}>
+        {/* <Grid xs={12} md={6} lg={4}>
           <AppCurrentSubject
             title="Current Subject"
             chart={{
@@ -188,11 +234,11 @@ export default function AppView() {
               ],
             }}
           />
-        </Grid>
+        </Grid> */}
 
         <Grid xs={12} md={6} lg={8}>
           <AppNewsUpdate
-            title="News Update"
+            title="Atualizações comunidade"
             list={[...Array(5)].map((_, index) => ({
               id: faker.string.uuid(),
               title: faker.person.jobTitle(),
@@ -221,7 +267,21 @@ export default function AppView() {
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
+        <Grid xs={12} md={6} lg={8}>
+          <AppTasks
+            title="Tasks"
+            list={[
+              { id: '1', name: 'Create FireStone Logo' },
+              { id: '2', name: 'Add SCSS and JS files if required' },
+              { id: '3', name: 'Stakeholder Meeting' },
+              { id: '4', name: 'Scoping & Estimations' },
+              { id: '5', name: 'Sprint Showcase' },
+            ]}
+          />
+        </Grid>
+      </Grid>
+
+        {/* <Grid xs={12} md={6} lg={4}>
           <AppTrafficBySite
             title="Traffic by Site"
             list={[
@@ -247,21 +307,9 @@ export default function AppView() {
               },
             ]}
           />
-        </Grid>
+        </Grid> */}
 
-        <Grid xs={12} md={6} lg={8}>
-          <AppTasks
-            title="Tasks"
-            list={[
-              { id: '1', name: 'Create FireStone Logo' },
-              { id: '2', name: 'Add SCSS and JS files if required' },
-              { id: '3', name: 'Stakeholder Meeting' },
-              { id: '4', name: 'Scoping & Estimations' },
-              { id: '5', name: 'Sprint Showcase' },
-            ]}
-          />
-        </Grid>
-      </Grid>
+        
     </Container>
   );
 }
