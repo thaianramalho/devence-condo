@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 
-
 // import Typography from '@mui/material/Typography';
 // import Iconify from 'src/components/iconify';
 import AppTasks from '../app-tasks';
@@ -19,8 +18,6 @@ import AppEntradas from '../app-entradas';
 // import AppConversionRates from '../app-conversion-rates';
 // ----------------------------------------------------------------------
 
-
-
 export default function AppView() {
   const navigate = useNavigate();
 
@@ -30,9 +27,13 @@ export default function AppView() {
   const [totalFamiliares, setTotalFamiliares] = useState(0);
   const [totalTerceirizados, setTotalTerceirizados] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
+  const [ultimaEntrada, setUltimaEntrada] = useState('');
+  const [ultimaSaida, setUltimaSaida] = useState('');
 
   useEffect(() => {
-    const loggedIn = sessionStorage.getItem('DvxE8dngEActqevLwZW8oNTGKq327SYnLYoRf5zDT2jUA8Nsy3J0NekG6FRyA0');
+    const loggedIn = sessionStorage.getItem(
+      'DvxE8dngEActqevLwZW8oNTGKq327SYnLYoRf5zDT2jUA8Nsy3J0NekG6FRyA0'
+    );
     if (!loggedIn) {
       navigate('/login');
     }
@@ -48,6 +49,28 @@ export default function AppView() {
         setTotalFamiliares(data.data.total_familiares);
         setTotalTerceirizados(data.data.total_terceirizados);
         setTotalUsers(data.data.total_users);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    fetch('http://localhost/devence-condo/backend/api/select_ultima_entrada.php')
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.data && data.data.ultimaEntrada && data.data.ultimaEntrada.length > 0) {
+          setUltimaEntrada(data.data.ultimaEntrada[0]);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    fetch('http://localhost/devence-condo/backend/api/select_ultima_saida.php')
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.data && data.data.ultimaSaida && data.data.ultimaSaida.length > 0) {
+          setUltimaSaida(data.data.ultimaSaida[0]);
+        }
       })
       .catch((error) => console.error(error));
   }, []);
@@ -78,12 +101,7 @@ export default function AppView() {
             title="Colaboradores"
             total={Number(totalColaboradores)}
             color="info"
-            icon={
-              <img 
-                alt="icon" 
-                src="/assets/icons/comum/handshake-solid.svg" 
-              />
-            }                 
+            icon={<img alt="icon" src="/assets/icons/comum/handshake-solid.svg" />}
           />
         </Grid>
 
@@ -114,23 +132,22 @@ export default function AppView() {
           />
         </Grid>
 
-
-       
-          <Grid xs={6} sm={6} md={6}>
-            <AppEntradas
-              name="João da Silva"
-              phone="(11) 99999-9999"
-              hour="10:00"
-            />
-          </Grid>
-          <Grid xs={6} sm={6} md={6}>
-            <AppEntradas
-              name="João da Silva"
-              phone="(11) 99999-9999"
-              hour="10:00"
-            />
-          </Grid>
-        
+        <Grid xs={6} sm={6} md={6}>
+          <AppEntradas
+            title="Última entrada"
+            name={ultimaEntrada ? ultimaEntrada.nome : 'Nenhum registro'}
+            phone={ultimaEntrada ? ultimaEntrada.telefone : ''}
+            hour={ultimaEntrada ? new Date(ultimaEntrada.data).toLocaleTimeString('pt-BR') : ''}
+          />
+        </Grid>
+        <Grid xs={6} sm={6} md={6}>
+          <AppEntradas
+            title="Última saída"
+            name={ultimaSaida ? ultimaSaida.nome : 'Nenhum registro'}
+            phone={ultimaSaida ? ultimaSaida.telefone : ''}
+            hour={ultimaSaida ? new Date(ultimaSaida.data).toLocaleTimeString('pt-BR') : ''}
+          />
+        </Grid>
 
         <Grid xs={12} md={6} lg={8}>
           <AppWebsiteVisits
@@ -163,7 +180,6 @@ export default function AppView() {
                   fill: 'gradient',
                   data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
                 },
-               
               ],
             }}
           />
@@ -281,7 +297,7 @@ export default function AppView() {
         </Grid>
       </Grid>
 
-        {/* <Grid xs={12} md={6} lg={4}>
+      {/* <Grid xs={12} md={6} lg={4}>
           <AppTrafficBySite
             title="Traffic by Site"
             list={[
@@ -308,8 +324,6 @@ export default function AppView() {
             ]}
           />
         </Grid> */}
-
-        
     </Container>
   );
 }
