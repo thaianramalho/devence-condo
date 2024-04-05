@@ -7,6 +7,7 @@ import FamiliaresPage from 'src/pages/familiares';
 import MoradoresPage from 'src/pages/moradores';
 import VisitantesPage from 'src/pages/visitantes';
 import { CadastroGeralPage } from 'src/sections/cadastro-geral';
+import { EditGeralPage } from 'src/sections/edit-geral';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -38,6 +39,7 @@ export default function Router() {
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'cadastrogeral', element: <CadastroGeralPage /> },
+        { path: 'editgeral', element: <EditGeralPage /> },
       ],
     },
     {

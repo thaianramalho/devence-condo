@@ -101,6 +101,10 @@ export default function MoradorPage() {
     navigate('/cadastrogeral');
   };
 
+  const handleClickEdit = (moradorId) => {
+    navigate(`/cadastrogeral/${moradorId}`);
+  };
+
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
@@ -157,6 +161,8 @@ export default function MoradorPage() {
                       complemento={morador.complemento}
                       observacoes={morador.observacoes}
                       handleClick={(event) => handleClick(event, morador.id)}
+                      handleClickEdit={() => handleClickEdit(morador.id)} 
+
                     />
                   ))}
 

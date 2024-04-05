@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-
-// import Stack from '@mui/material/Stack';
-// import Avatar from '@mui/material/Avatar';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import Popover from '@mui/material/Popover';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
@@ -11,8 +9,6 @@ import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Iconify from 'src/components/iconify';
-
-// ----------------------------------------------------------------------
 
 export default function UserTableRow({
   selected,
@@ -25,6 +21,7 @@ export default function UserTableRow({
   handleClick,
 }) {
   const [open, setOpen] = useState(null);
+  const navigate = useNavigate();
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -32,6 +29,11 @@ export default function UserTableRow({
 
   const handleCloseMenu = () => {
     setOpen(null);
+  };
+
+  const handleEdit = () => {
+    navigate('/editgeral');
+    handleCloseMenu();
   };
 
   return (
@@ -74,7 +76,9 @@ export default function UserTableRow({
           sx: { width: 140 },
         }}
       >
-        <MenuItem onClick={handleCloseMenu}>
+        <MenuItem onClick={handleEdit}>
+          {' '}
+          {/* Modificar esta linha */}
           <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
           Editar
         </MenuItem>
